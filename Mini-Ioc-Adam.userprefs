@@ -1,0 +1,26 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Mini-Ioc-Adam/Program.cs">
+    <Files>
+      <File FileName="Mini-Ioc-Adam/Program.cs" Line="18" Column="55" />
+      <File FileName="Mini-Ioc-Adam-Tests/Test.cs" Line="10" Column="3" />
+    </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True">
+          <Node name="Mini-Ioc-Adam-Tests" expanded="True">
+            <Node name="MiniIocAdamTests" expanded="True">
+              <Node name="IOCTests" expanded="True">
+                <Node name="TestCase" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
