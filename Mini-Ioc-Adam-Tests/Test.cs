@@ -206,6 +206,15 @@ namespace MiniIocAdamTests
 			Assert.IsInstanceOfType (typeof(ITestInterface), c.Resolve<ITestInterface>(Id));
 		}
 
+		[Test]
+		public void Resolve_WithIdAndToType_ReturnsObject()
+		{
+			var c = new IoCContainer();
+			var Id = "Testing";
+			c.Register<ITestInterface, CustomeTestClass> (Id);
+			Assert.IsInstanceOfType (typeof(CustomeTestClass), c.Resolve(typeof(CustomeTestClass), Id));
+		}
+
 
 	}
 }

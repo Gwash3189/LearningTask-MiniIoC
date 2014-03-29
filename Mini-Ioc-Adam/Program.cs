@@ -78,9 +78,9 @@ namespace MiniIocAdam
 		//http://msdn.microsoft.com/en-us/library/bb384067.aspx
 		void Register<TFromType,TToType> ( string Id = "") where TToType: TFromType;
 
-		void Register<TFromType, TToType> (Func<object> concreteFactory, string Id = "");
-		void Register(Type FromType ,Type ToType,Func<object> concreteFactory, string Id = "");
+		void Register<TFromType, TToType> (Func<object> concreteFactory, string Id = "")where TToType: TFromType;
 
+		void Register(Type FromType ,Type ToType,Func<object> concreteFactory, string Id = "");
 
 		bool IsRegistered (string Id);
 
@@ -98,7 +98,7 @@ namespace MiniIocAdam
 
 	}
 
-	public class IoCContainer {
+	public class IoCContainer : IIoCContainer{
 		public readonly List<IocRegister> RegisteredObjects = new List<IocRegister>();
 
 
@@ -116,8 +116,8 @@ namespace MiniIocAdam
 
 
 		public void Register(Type FromType, Type ToType, Func<object> concreteFactory, string Id = ""){
-			if (RegisteredObjects.FindAll(x => x.FromType == FromType).FirstOrDefault() == null 
-				|| RegisteredObjects.FindAll(x => x.Id == Id).FirstOrDefault() == null) {
+			if (RegisteredObjects.FindAll(x => x.ToType == ToType).ToList().Count() == 0 
+				|| RegisteredObjects.FindAll(x => x.Id == Id).ToList().Count == 0) {
 				RegisteredObjects.Add (new IocRegister {
 					FromType = FromType,
 					ToType = ToType,
@@ -151,10 +151,17 @@ namespace MiniIocAdam
 			return (TFromType) newItem;
 		}
 
-		public TFromType Resolve<TFromType>(string Id){
-			var item = RegisteredObjects.Find (x => x.FromType == typeof(TFromType) && x.Id == Id);
-			var newItem = item.factory ();
-			return (TFromType) newItem;
+		public TFromType Resolve<TFromType>(string Id= ""){
+			if (Id == "") {
+				return (TFromType)RegisteredObjects.Find (x => x.FromType == typeof(TFromType) && x.Id == Id).factory ();
+			}
+
+			var item =  (TFromType)RegisteredObjects.Find (x => x.FromType == typeof(TFromType) && x.Id == Id).factory ();
+			return item;
+		}
+
+		public object Resolve (Type ToType, string Id = ""){
+			return RegisteredObjects.Find (x => x.ToType == ToType && x.Id == Id).factory ();
 		}
 	}
 
